@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function App() {
   const gallerys = [
     {src : "images/pic1.jpg",alt : "Closeup of a human eye"},
@@ -6,14 +8,20 @@ export default function App() {
     {src : "images/pic4.jpg",alt : "Section of wall from a pharoah's tomb"},
     {src : "images/pic5.jpg",alt : "Large moth on a leaf"}
   ];
+
+  const [displayedImage, setDisplayedImag] = useState(gallerys[0]);
+  function handleClick(image) {
+    setDisplayedImag(image);
+  }
+
   return (
     <>
       <h1>Image gallery example</h1>
       <div className="full-img">
         <img
           className="displayed-img"
-          src="images/pic1.jpg"
-          alt="Closeup of a human eye"
+          src={displayedImage.src}
+          alt={displayedImage.alt}
         />
         <div className="overlay"></div>
         <button className="dark">Darken</button>
@@ -21,10 +29,18 @@ export default function App() {
       <div className="thumb-bar">
         {gallerys.map((image,index) => {
           return (
-            <img key = {index} src = {image.src} alt = {image.alt}/>
+            <img 
+              key = {index} 
+              src = {image.src} 
+              alt = {image.alt}
+              onClick={() => {
+                handleClick(image)
+              }}
+            />
           );
         })}
       </div>
+
     </>
   );
 }
