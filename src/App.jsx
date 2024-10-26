@@ -10,8 +10,13 @@ export default function App() {
   ];
 
   const [displayedImage, setDisplayedImag] = useState(gallerys[0]);
+  const [isDarkened,setIsDarkened] = useState(false);
   function handleClick(image) {
     setDisplayedImag(image);
+  }
+
+  function toggleDarken() {
+    setIsDarkened((isDark) => !isDark);
   }
 
   return (
@@ -23,8 +28,14 @@ export default function App() {
           src={displayedImage.src}
           alt={displayedImage.alt}
         />
-        <div className="overlay"></div>
-        <button className="dark">Darken</button>
+        <div 
+          className="overlay"
+          style={{backgroundColor:isDarkened ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0)"
+          }}>
+        </div>
+        <button className="dark" onClick={toggleDarken}>
+          {isDarkened ? "Lighten" : "Darken"}
+        </button>
       </div>
       <div className="thumb-bar">
         {gallerys.map((image,index) => {
